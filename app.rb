@@ -9,6 +9,7 @@ riddle_number = nil
 current_riddle = nil
 correct_answers = nil
 random_riddles = nil
+random_mode = false
 
 def get_random_riddle(list)
   random_int = rand(0..list.length)
@@ -16,24 +17,29 @@ def get_random_riddle(list)
   random_riddle
 end
 
+def get_next_riddle(random, riddle_number, random_riddles)
+  if random
+    next_riddle = get_random_riddle(random_riddles)
+  else
+    next_riddle = Riddle.new(RIDDLES[riddle_number])
+  end
+  next_riddle
+end
+
 get '/' do
   riddle_number = 0
   correct_answers = 0
   random_riddles = RIDDLES[0..RIDDLES.length]
+  random_mode = false
   erb(:landing)
 end
 
 get '/riddles' do
-  current_riddle = Riddle.new(RIDDLES[riddle_number])
+  if params[:random]
+    random_mode = true
+  end
+  current_riddle = get_next_riddle(random_mode, riddle_number, random_riddles)
   @riddle = current_riddle
-  @action = 'riddles'
-  erb(:input)
-end
-
-get '/random_riddles' do
-  current_riddle = get_random_riddle(random_riddles)
-  @riddle = current_riddle
-  @action = 'random_riddles'
   erb(:input)
 end
 
@@ -41,29 +47,12 @@ post '/riddles' do
   answer = params.fetch('answer')
   if current_riddle.correct?(answer)
     riddle_number += 1
-    if riddle_number == 3
-      erb(:success)
-    else
-      current_riddle = Riddle.new(RIDDLES[riddle_number])
-      @riddle = current_riddle
-      @action = 'riddles'
-      erb(:input)
-    end
-  else
-    erb(:failure)
-  end
-end
-
-post '/random_riddles' do
-  answer = params.fetch('answer')
-  if current_riddle.correct?(answer)
     correct_answers += 1
     if correct_answers == 3
       erb(:success)
     else
-      current_riddle = get_random_riddle(random_riddles)
+      current_riddle = get_next_riddle(random_mode, riddle_number, random_riddles)
       @riddle = current_riddle
-      @action = 'random_riddles'
       erb(:input)
     end
   else

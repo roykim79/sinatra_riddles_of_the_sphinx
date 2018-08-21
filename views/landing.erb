@@ -2,5 +2,12 @@
 
 <p>To enter, you must answer a set of riddles correctly.</p>
 
-<a href="/riddles">Standard riddles</a>
-<a href="/random_riddles">Random riddles</a>
+<form class="" action="/riddles" method="get">
+  <div class="form-group">
+    <label for="random">Random</label>
+    <input type="checkbox" name="random" value="true">
+  </div>
+  <button class="btn btn-primary" type="submit">Proceed</button>
+</form>
+
+<!-- <a href="/random_riddles">Random riddles</a> -->
