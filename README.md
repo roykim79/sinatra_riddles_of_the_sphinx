@@ -4,7 +4,7 @@
 Roy Kim
 
 ## Description
-This is a game based on the Grrek myth of the Sphinx. The user must answer a series of questions correctly in order to enter the city of Thebes.
+This is a game based on the Greek myth of the Sphinx. The user must answer a series of questions correctly in order to enter the city of Thebes.
 
 ## Setup instructions
 To download the dependencies, you need to run `bundle` from the project's root folder.
