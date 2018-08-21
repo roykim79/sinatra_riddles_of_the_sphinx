@@ -6,13 +6,13 @@ set :show_exceptions, false
 describe 'the riddle path', :type => :feature do
   it 'sends to user to the riddles page where they will be asked a question' do
     visit '/'
-    click_link 'Proceed'
+    click_link 'Standard riddles'
     expect(page).to have_content '?'
   end
 
   it 'checks if the given answer is correct and displays a failure message if incorrect' do
     visit '/'
-    click_link 'Proceed'
+    click_link 'Standard riddles'
     fill_in 'answer', :with => '2'
     click_button 'Go!'
     fill_in 'answer', :with => '5'
@@ -22,7 +22,7 @@ describe 'the riddle path', :type => :feature do
 
   it 'sends to user to a success page after answering 3 riddles correctly' do
     visit '/'
-    click_link 'Proceed'
+    click_link 'Standard riddles'
     fill_in 'answer', :with => '2'
     click_button 'Go!'
     fill_in 'answer', :with => '4'
@@ -30,5 +30,13 @@ describe 'the riddle path', :type => :feature do
     fill_in 'answer', :with => 'Newspaper'
     click_button 'Go!'
     expect(page).to have_content 'Success!'
+  end
+end
+
+describe 'the random riddle path', :type => :feature do
+  it 'sends the user to a random riddle to answer' do
+    visit '/'
+    click_link 'Random riddles'
+    expect(page).to have_content '?'
   end
 end

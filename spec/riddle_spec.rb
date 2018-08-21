@@ -1,21 +1,9 @@
 require 'rspec'
 require 'riddle'
+require 'riddles'
 
 describe Riddle do
-  riddles = [
-    {
-      :q => 'What is 1 + 1?',
-      :a => '2'
-    },
-    {
-      :q => 'What is 2 + 2?',
-      :a => '4'
-    },
-    {
-      :q => 'What is black and white and read all over',
-      :a => 'newspaper'
-    }
-  ]
+  riddles = RIDDLES
   describe '#correct?' do
     it 'returns true if the riddle was answered correctly, otherwise it returns false' do
       riddle1 = Riddle.new(riddles[0])
