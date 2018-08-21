@@ -6,6 +6,6 @@ class Riddle
   end
 
   def correct?(answer)
-    @details[:a] == answer
+    @details[:a] == answer.downcase
   end
 end

@@ -13,11 +13,11 @@ describe Riddle do
     },
     {
       :q => 'What is black and white and read all over',
-      :a => 'Newspaper'
+      :a => 'newspaper'
     }
   ]
   describe '#correct?' do
-    it 'returns true if the riddle was answered correctly, or false' do
+    it 'returns true if the riddle was answered correctly, otherwise it returns false' do
       riddle1 = Riddle.new(riddles[0])
       expect(riddle1.correct?('2')).to eq(true)
       expect(riddle1.correct?('3')).to eq(false)
