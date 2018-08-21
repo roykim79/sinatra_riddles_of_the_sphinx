@@ -21,11 +21,11 @@ RIDDLES = [
 riddle_number = 0
 
 get '/' do
+  riddle_number = 0
   erb(:landing)
 end
 
 get '/riddles' do
-  riddle_number = 0
   @riddle = Riddle.new(RIDDLES[riddle_number])
   erb(:input)
 end
