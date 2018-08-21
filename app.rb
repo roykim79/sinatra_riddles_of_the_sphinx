@@ -12,7 +12,8 @@ random_riddles = nil
 
 def get_random_riddle(list)
   random_int = rand(0..list.length)
-  list.slice!(random_int, 1)[0]
+  random_riddle = Riddle.new(list.slice!(random_int, 1)[0])
+  random_riddle
 end
 
 get '/' do
@@ -25,12 +26,14 @@ end
 get '/riddles' do
   current_riddle = Riddle.new(RIDDLES[riddle_number])
   @riddle = current_riddle
+  @action = 'riddles'
   erb(:input)
 end
 
 get '/random_riddles' do
-  current_riddle = Riddle.new(get_random_riddle(random_riddles))
+  current_riddle = get_random_riddle(random_riddles)
   @riddle = current_riddle
+  @action = 'random_riddles'
   erb(:input)
 end
 
@@ -43,6 +46,7 @@ post '/riddles' do
     else
       current_riddle = Riddle.new(RIDDLES[riddle_number])
       @riddle = current_riddle
+      @action = 'riddles'
       erb(:input)
     end
   else
@@ -57,8 +61,9 @@ post '/random_riddles' do
     if correct_answers == 3
       erb(:success)
     else
-      current_riddle = Riddle.new(get_random_riddle(random_riddles))
+      current_riddle = get_random_riddle(random_riddles)
       @riddle = current_riddle
+      @action = 'random_riddles'
       erb(:input)
     end
   else

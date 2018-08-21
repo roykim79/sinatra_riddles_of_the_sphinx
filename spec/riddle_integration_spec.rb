@@ -13,9 +13,7 @@ describe 'the riddle path', :type => :feature do
   it 'checks if the given answer is correct and displays a failure message if incorrect' do
     visit '/'
     click_link 'Standard riddles'
-    fill_in 'answer', :with => '2'
-    click_button 'Go!'
-    fill_in 'answer', :with => '5'
+    fill_in 'answer', :with => 'foo'
     click_button 'Go!'
     expect(page).to have_content 'Wrong'
   end
